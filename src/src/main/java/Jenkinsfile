@@ -17,14 +17,14 @@ pipeline {
         stage('Build') {
             steps {
                 // Runs Maven: clean (wipes old builds) and test (runs JUnit)
-              dir(src){
+              dir('src'){
                 bat 'mvn clean test'
               }
             }
         }
         stage('Test') {
             steps {
-              dir(src){
+              dir('src'){
                 bat 'mvn test'
               }
             } 
