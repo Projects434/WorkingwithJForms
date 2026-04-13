@@ -1,1 +1,33 @@
+pipeline {
+    agent any
 
+    tools {
+        // Must match the name configured in Manage Jenkins -> Global Tool Configuration
+        maven 'Maven 3.9' 
+        jdk 'JDK-21'
+    }
+    stages {
+        stage('Checkout') {
+            steps {
+                // Pulls code from the repository defined in the job configuration
+                git branch: 'JFormTest', url: 'https://github.com/Projects434/WorkingwithJForms.git'
+            }
+        }
+
+        stage('Build') {
+            steps {
+                // Runs Maven: clean (wipes old builds) and test (runs JUnit)
+              dir('src'){
+                bat 'mvn clean test'
+              }
+            }
+        }
+        stage('Test') {
+            steps {
+              dir('src'){
+                bat 'mvn test'
+              }
+            } 
+       }
+    }
+}
